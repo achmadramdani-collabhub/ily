@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animasi Love</title>
+    <style>
+        /* Mengatur latar belakang halaman */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffeef2; /* Warna pink lembut */
+            font-family: 'Segoe UI', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Wadah utama untuk elemen love dan teks */
+        .container {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* Membuat bentuk hati menggunakan CSS */
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            margin: 0 auto 30px;
+            background-color: #ff4d6d; /* Warna merah muda terang */
+            transform: rotate(-45deg);
+            /* Menjalankan animasi bernama 'beat' selama 0.6 detik secara terus-menerus */
+            animation: beat 0.6s infinite alternate; 
+            filter: drop-shadow(0 10px 20px rgba(255, 77, 109, 0.4));
+        }
+
+        /* Bagian bulat kiri hati */
+        .heart::before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ff4d6d;
+            top: -50px;
+            left: 0;
+        }
+
+        /* Bagian bulat kanan hati */
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ff4d6d;
+            top: 0;
+            left: 50px;
+        }
+
+        /* Efek saat kursor diarahkan ke hati */
+        .container:hover .heart {
+            background-color: #ff0054;
+        }
+        .container:hover .heart::before,
+        .container:hover .heart::after {
+            background-color: #ff0054;
+        }
+
+        /* Gaya teks di bawah hati */
+        h1 {
+            color: #ff4d6d;
+            font-size: 1.8rem;
+            margin: 0;
+            opacity: 0.8;
+            transition: transform 0.3s;
+        }
+
+        .container:hover h1 {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        /* LOGIKA ANIMASI: Membuat efek berdetak (membesar & mengecil) */
+        @keyframes beat {
+            0% {
+                transform: rotate(-45deg) scale(1);
+            }
+            100% {
+                transform: rotate(-45deg) scale(1.15);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" onclick="tambahEfek()">
+        <!-- Elemen hati -->
+        <div class="heart"></div>
+        <!-- Elemen teks -->
+        <h1 id="text">Klik Hati Ini biar gak penasaran!</h1>
+    </div>
+
+    <script>
+        // Fungsi interaktif sederhana menggunakan JavaScript
+        function tambahEfek() {
+            const teks = document.getElementById('text');
+            teks.innerText = "halo dekk ❤️";
+            teks.style.color = "#ff0054";
+        }
+    </script>
+
+</body>
+</html>
