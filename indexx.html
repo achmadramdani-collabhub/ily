@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Achmad Ramdani — Portofolio </title>
+<style>
+  :root{
+    --bg: #0B0F1A;
+    --bg-panel: #0F1729;
+    --bg-panel2: #131D33;
+    --line: #1E2A3F;
+    --cyan: #00E5FF;
+    --cyan-dim: #3AA9C9;
+    --white: #F4F8FB;
+    --grey: #9FB3C8;
+    --grey-dim: #5D7188;
+  }
+  *{ box-sizing: border-box; margin:0; padding:0; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', 'Calibri', Arial, sans-serif;
+    overflow-x: hidden;
+  }
+  @font-face{}
+  h1,h2,h3,.serif{
+    font-family: 'Georgia', 'Cambria', 'Times New Roman', serif;
+  }
+
+  /* ---------- Background grid motif ---------- */
+  .grid-bg{
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(to right, var(--line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    background-size: 56px 56px;
+    opacity: 0.35;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .glow{
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(10px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow-1{ width: 620px; height: 620px; top: -220px; right: -160px;
+    background: radial-gradient(circle, rgba(0,229,255,0.12), transparent 70%); }
+  .glow-2{ width: 520px; height: 520px; bottom: 10%; left: -220px;
+    background: radial-gradient(circle, rgba(0,229,255,0.08), transparent 70%); }
+
+  section{ position: relative; z-index: 1; }
+
+  /* ---------- Nav ---------- */
+  nav{
+    position: fixed; top:0; left:0; right:0; z-index: 50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 22px 6vw;
+    backdrop-filter: blur(10px);
+    background: rgba(11,15,26,0.55);
+    border-bottom: 1px solid var(--line);
+  }
+  .logo{
+    font-family: 'Georgia', serif; font-weight:700; font-size:1.05rem;
+    letter-spacing: 0.5px;
+  }
+  .logo span{ color: var(--cyan); }
+  nav ul{
+    display:flex; gap: 34px; list-style:none;
+  }
+  nav a{
+    color: var(--grey); text-decoration:none; font-size: 0.85rem;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    transition: color .25s;
+    position: relative;
+  }
+  nav a:hover, nav a:focus-visible{ color: var(--white); }
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:-6px; width:0; height:1px;
+    background: var(--cyan); transition: width .25s;
+  }
+  nav a:hover::after{ width:100%; }
+  .nav-toggle{ display:none; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height: 100vh;
+    display:flex; flex-direction: column; justify-content:center;
+    padding: 0 6vw;
+    position: relative;
+  }
+  .eyebrow{
+    color: var(--cyan); font-size: 0.85rem; letter-spacing: 4px;
+    font-weight: 600; margin-bottom: 22px;
+    opacity:0; transform: translateY(14px);
+    animation: rise .7s .1s forwards ease;
+  }
+  .hero h1{
+    font-size: clamp(2.6rem, 7vw, 5.6rem);
+    line-height: 1.05; font-weight: 700;
+    max-width: 900px;
+    opacity:0; transform: translateY(18px);
+    animation: rise .8s .25s forwards ease;
+  }
+  .hero-role{
+    margin-top: 26px; font-size: clamp(1rem, 1.6vw, 1.25rem);
+    color: var(--grey); max-width: 640px;
+    opacity:0; transform: translateY(14px);
+    animation: rise .8s .45s forwards ease;
+  }
+  .hero-role b{ color: var(--white); font-weight: 600; }
+  .hero-cta{
+    margin-top: 42px; display:flex; gap: 18px; align-items:center;
+    opacity:0; transform: translateY(14px);
+    animation: rise .8s .6s forwards ease;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding: 14px 26px; border-radius: 999px;
+    background: var(--cyan); color: #06141C;
+    font-weight: 700; font-size: 0.9rem; text-decoration:none;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .btn:hover{ transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,229,255,0.25); }
+  .btn-ghost{
+    color: var(--white); background: transparent;
+    border: 1px solid var(--line);
+  }
+  .btn-ghost:hover{ border-color: var(--cyan-dim); box-shadow:none; }
+
+  .hero-scroll{
+    position:absolute; bottom: 40px; left: 6vw;
+    display:flex; align-items:center; gap: 12px;
+    color: var(--grey-dim); font-size: 0.75rem; letter-spacing: 2px;
+    opacity:0; animation: rise .8s .9s forwards ease;
+  }
+  .scroll-line{
+    width: 1px; height: 40px; background: linear-gradient(var(--cyan), transparent);
+    animation: pulseLine 2.2s infinite;
+  }
+  @keyframes pulseLine{ 0%,100%{opacity:.3} 50%{opacity:1} }
+  @keyframes rise{ to{ opacity:1; transform: translateY(0);} }
+
+  /* ---------- Section shell ---------- */
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 140px 6vw; }
+  .section-head{ margin-bottom: 64px; }
+  .section-eyebrow{
+    color: var(--cyan); font-size: 0.8rem; letter-spacing: 3px;
+    font-weight: 700; margin-bottom: 14px;
+  }
+  .section-title{
+    font-size: clamp(2rem, 3.6vw, 2.8rem); font-weight: 700;
+  }
+
+  .reveal{ opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+  .reveal.in{ opacity: 1; transform: translateY(0); }
+
+  /* ---------- About ---------- */
+  .about-grid{
+    display:grid; grid-template-columns: 1fr 1.15fr; gap: 70px; align-items:start;
+  }
+  .about-lead{ font-size: 1.15rem; color: var(--grey); line-height: 1.7; }
+  .about-edu{
+    margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line);
+    color: var(--grey-dim); font-size: 0.9rem; line-height: 1.6;
+  }
+  .about-edu b{ color: var(--white); display:block; margin-bottom: 4px; font-size: 0.95rem;}
+
+  .stat-row{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 44px; }
+  .stat-card{
+    background: var(--bg-panel); border: 1px solid var(--line);
+    border-radius: 14px; padding: 26px 20px; text-align:center;
+    transition: border-color .3s, transform .3s;
+  }
+  .stat-card:hover{ border-color: var(--cyan-dim); transform: translateY(-4px); }
+  .stat-num{ font-family: 'Georgia', serif; font-size: 2.2rem; font-weight:700; color: var(--cyan); }
+  .stat-label{ font-size: 0.78rem; color: var(--grey); margin-top: 6px; letter-spacing: .3px; }
+
+  .skill-list{ list-style:none; display:flex; flex-direction:column; gap: 14px; }
+  .skill-list li{
+    display:flex; align-items:center; gap: 14px; color: var(--grey);
+    font-size: 0.98rem; padding-bottom: 14px; border-bottom: 1px dashed var(--line);
+  }
+  .skill-list li:last-child{ border-bottom:none; }
+  .dot{ width:7px; height:7px; border-radius:50%; background: var(--cyan); flex-shrink:0; }
+
+  /* ---------- Skills / competency cards ---------- */
+  .comp-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap: 22px;
+  }
+  .comp-card{
+    background: var(--bg-panel); border: 1px solid var(--line);
+    border-radius: 16px; padding: 30px 24px;
+    transition: transform .35s, border-color .35s, background .35s;
+  }
+  .comp-card:hover{
+    transform: translateY(-6px);
+    border-color: var(--cyan-dim);
+    background: var(--bg-panel2);
+  }
+  .comp-icon{
+    width: 54px; height:54px; border-radius:50%;
+    background: rgba(0,229,255,0.1); border: 1px solid rgba(0,229,255,0.35);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 1.4rem; color: var(--cyan); margin-bottom: 22px;
+  }
+  .comp-title{ font-family:'Georgia',serif; font-size: 1.15rem; font-weight:700; margin-bottom: 10px; }
+  .comp-desc{ color: var(--grey); font-size: 0.88rem; line-height: 1.5; min-height: 42px; }
+  .bar-track{ height: 5px; background: var(--line); border-radius: 4px; margin-top: 22px; overflow:hidden; }
+  .bar-fill{ height:100%; background: linear-gradient(90deg, var(--cyan-dim), var(--cyan)); width:0; border-radius:4px; transition: width 1.4s cubic-bezier(.2,.7,.2,1); }
+  .bar-pct{ margin-top: 8px; font-size: 0.78rem; color: var(--cyan-dim); }
+
+  /* ---------- Projects ---------- */
+  .proj-list{ display:flex; flex-direction:column; gap: 20px; }
+  .proj-card{
+    display:grid; grid-template-columns: 90px 1fr auto; align-items:center; gap: 28px;
+    background: var(--bg-panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: 30px 34px;
+    transition: border-color .3s, background .3s;
+  }
+  .proj-card:hover{ border-color: var(--cyan-dim); background: var(--bg-panel2); }
+  .proj-no{ font-family:'Georgia',serif; font-size: 2.4rem; color: var(--line); font-weight:700; }
+  .proj-title{ font-family:'Georgia',serif; font-size: 1.3rem; font-weight:700; margin-bottom: 8px; }
+  .proj-desc{ color: var(--grey); font-size: 0.92rem; line-height:1.6; max-width: 560px; }
+  .proj-tag{
+    background: rgba(0,229,255,0.1); color: var(--cyan);
+    border: 1px solid rgba(0,229,255,0.25);
+    padding: 8px 18px; border-radius: 999px; font-size: 0.78rem; font-weight:700;
+    white-space: nowrap;
+  }
+
+  /* ---------- Contact ---------- */
+  .contact-inner{
+    display:flex; flex-direction:column; align-items:flex-start;
+  }
+  .contact-title{
+    font-size: clamp(2rem, 5vw, 3.4rem); font-weight:700; max-width: 760px; line-height:1.15;
+  }
+  .contact-grid{
+    margin-top: 60px; display:grid; grid-template-columns: repeat(2, 1fr); gap: 34px 70px; width:100%;
+  }
+  .contact-item{ border-top: 2px solid var(--cyan); padding-top: 16px; }
+  .contact-label{ font-size: 0.75rem; letter-spacing: 2px; color: var(--cyan-dim); font-weight:700; margin-bottom: 8px; }
+  .contact-value{ font-size: 1.05rem; color: var(--white); }
+  .contact-value a{ color: var(--white); text-decoration:none; border-bottom: 1px solid transparent; transition: border-color .25s, color .25s; }
+  .contact-value a:hover{ border-color: var(--cyan); color: var(--cyan); }
+
+  footer{
+    border-top: 1px solid var(--line);
+    padding: 26px 6vw; display:flex; justify-content:space-between;
+    color: var(--grey-dim); font-size: 0.78rem; letter-spacing: 1.5px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 900px){
+    nav ul{ display:none; }
+    .about-grid{ grid-template-columns: 1fr; gap: 40px; }
+    .comp-grid{ grid-template-columns: 1fr 1fr; }
+    .contact-grid{ grid-template-columns: 1fr; }
+    .proj-card{ grid-template-columns: 1fr; text-align:left; gap: 14px; }
+    .proj-no{ font-size: 1.6rem; }
+  }
+  @media (max-width: 560px){
+    .comp-grid{ grid-template-columns: 1fr; }
+    .stat-row{ grid-template-columns: 1fr; }
+    .wrap{ padding: 100px 6vw; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+
+<nav>
+  <div class="logo">N<span>L</span>.</div>
+  <ul>
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#skills">Keahlian</a></li>
+    <li><a href="#projects">Proyek</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="eyebrow">PORTOFOLIO — INSINYUR TEKNIK</div>
+  <h1>Achmad Ramdani</h1>
+  <p class="hero-role">Insinyur <b>Mechanical &amp; Systems Engineering</b> — merancang solusi rekayasa yang presisi, efisien, dan siap masa depan.</p>
+  <div class="hero-cta">
+    <a class="btn" href="#projects">Lihat Proyek</a>
+    <a class="btn btn-ghost" href="#contact">Hubungi Saya</a>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div>SCROLL</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">TENTANG SAYA</div>
+      <h2 class="section-title">Fondasi teknik yang kuat</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="reveal">
+        <p class="about-lead">Berpengalaman merancang dan menguji sistem mekanis serta otomasi untuk industri manufaktur. Fokus pada efisiensi desain, keandalan komponen, dan integrasi teknologi digital ke dalam proses rekayasa.</p>
+        <div class="about-edu">
+          <b>Pesantren Teknologi informasi dan Komunikasi (PeTIk)</b>
+        
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-num">3+</div>
+            <div class="stat-label">Tahun Pengalaman</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">12</div>
+            <div class="stat-label">Proyek Selesai</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">5</div>
+            <div class="stat-label">Sertifikasi Teknik</div>
+          </div>
+        </div>
+
+        <ul class="skill-list">
+          <li><span class="dot"></span>Desain CAD (SolidWorks, AutoCAD)</li>
+          <li><span class="dot"></span>Analisis Elemen Hingga (FEA)</li>
+          <li><span class="dot"></span>Manajemen Proyek Rekayasa</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">KEAHLIAN &amp; PERANGKAT</div>
+      <h2 class="section-title">Kompetensi Teknik</h2>
+    </div>
+
+    <div class="comp-grid">
+      <div class="comp-card reveal" data-pct="90">
+        <div class="comp-icon">⚙</div>
+        <div class="comp-title">Desain &amp; CAD</div>
+        <div class="comp-desc">SolidWorks, AutoCAD, Fusion 360</div>
+        <div class="bar-track"><div class="bar-fill"></div></div>
+        <div class="bar-pct">90%</div>
+      </div>
+      <div class="comp-card reveal" data-pct="80">
+        <div class="comp-icon">◧</div>
+        <div class="comp-title">Analisis &amp; Simulasi</div>
+        <div class="comp-desc">ANSYS, FEA, CFD dasar</div>
+        <div class="bar-track"><div class="bar-fill"></div></div>
+        <div class="bar-pct">80%</div>
+      </div>
+      <div class="comp-card reveal" data-pct="75">
+        <div class="comp-icon">◈</div>
+        <div class="comp-title">Otomasi &amp; Kontrol</div>
+        <div class="comp-desc">PLC, sensor, sistem tertanam</div>
+        <div class="bar-track"><div class="bar-fill"></div></div>
+        <div class="bar-pct">75%</div>
+      </div>
+      <div class="comp-card reveal" data-pct="85">
+        <div class="comp-icon">▤</div>
+        <div class="comp-title">Manajemen Proyek</div>
+        <div class="comp-desc">Perencanaan, dokumentasi teknik</div>
+        <div class="bar-track"><div class="bar-fill"></div></div>
+        <div class="bar-pct">85%</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">PROYEK UNGGULAN</div>
+      <h2 class="section-title">Rekam Jejak Proyek</h2>
+    </div>
+
+    <div class="proj-list">
+      <div class="proj-card reveal">
+        <div class="proj-no">01</div>
+        <div>
+          <div class="proj-title">Sistem Konveyor Otomatis</div>
+          <div class="proj-desc">Merancang jalur konveyor otomatis untuk lini produksi, meningkatkan efisiensi proses sebesar 30%.</div>
+        </div>
+        <div class="proj-tag">Otomasi Industri</div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-no">02</div>
+        <div>
+          <div class="proj-title">Optimasi Struktur Rangka</div>
+          <div class="proj-desc">Analisis FEA untuk mengurangi bobot rangka kendaraan tanpa mengorbankan kekuatan struktural.</div>
+        </div>
+        <div class="proj-tag">Analisis Struktur</div>
+      </div>
+      <div class="proj-card reveal">
+        <div class="proj-no">03</div>
+        <div>
+          <div class="proj-title">Prototipe Alat Hemat Energi</div>
+          <div class="proj-desc">Pengembangan prototipe perangkat efisiensi energi untuk aplikasi skala kecil dan menengah.</div>
+        </div>
+        <div class="proj-tag">R&amp;D Produk</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap contact-inner">
+    <div class="section-eyebrow reveal">MARI TERHUBUNG</div>
+    <h2 class="contact-title reveal">Terbuka untuk kolaborasi &amp; proyek baru</h2>
+
+    <div class="contact-grid reveal">
+      <div class="contact-item">
+        <div class="contact-label">EMAIL</div>
+        <div class="contact-value"><a href="mailto:nama.lengkap@email.com">achmadramdani1709@gmail.com</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">TELEPON</div>
+        <div class="contact-value">+62 857-7925-3449</div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">LINKEDIN</div>
+        <div class="contact-value"><a href="#">linkedin.com/in/Achmad Ramdani</a></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-label">LOKASI</div>
+        <div class="contact-value">Bekasi, Indonesia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>PORTOFOLIO TEKNIK Engineer</span>
+  <span>© 2026 NAMA LENGKAP</span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Skill bar fill on reveal
+  const compCards = document.querySelectorAll('.comp-card');
+  const barIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const pct = e.target.getAttribute('data-pct');
+        const fill = e.target.querySelector('.bar-fill');
+        requestAnimationFrame(() => { fill.style.width = pct + '%'; });
+        barIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  compCards.forEach(el => barIO.observe(el));
+</script>
+
+</body>
